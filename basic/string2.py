@@ -9,7 +9,7 @@
 # Additional basic string exercises
 
 import re
-
+import math
 
 # D. verbing
 # Given a string, if its length is at least 3,
@@ -19,13 +19,15 @@ import re
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
 def verbing(s):
-    if len(s) > 2 and not s.endswith('ing'):
-        return s + 'ing'
+    if len(s) <= 2:
+        return s
 
-    if len(s) > 2:
-        return s + 'ly'
+    if not s.endswith('ing'):
+        result = s + 'ing'
+    else:
+        result = s + 'ly'
 
-    return s
+    return result
 
 
 # E. not_bad
@@ -48,17 +50,11 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-    if not len(a) % 2:
-        half_a = int(len(a) / 2)
-    else:
-        half_a = int(len(a) / 2) + 1
+    mid = lambda s: math.ceil(len(s) / 2)
+    front = lambda s: s[:mid(s)]
+    back = lambda s: s[mid(s):]
 
-    if not len(b) % 2:
-        half_b = int(len(b) / 2)
-    else:
-        half_b = int(len(b) / 2) + 1
-
-    return a[:half_a] + b[:half_b] + a[half_a:] + b[half_b:]
+    return ''.join([front(a), front(b), back(a), back(b)])
 
 
 # Simple provided test() function used in main() to print
